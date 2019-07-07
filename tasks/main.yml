@@ -1,0 +1,57 @@
+---
+- name: resolve platform specific vars
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+      skip: true
+      paths:
+        - '{{ role_path }}/vars'
+- name: check for install
+  become: yes
+  stat:
+    path: '{{ nomad_ver_install_subdir }}'
+  changed_when: False
+  register: nomad_binary
+- when: not nomad_binary.stat.exists
+  block:
+    - name: download archive
+      become: yes
+      become_user: root
+      get_url:
+        url: '{{ nomad_url }}'
+        dest: /tmp/{{ nomad_archive }}
+        mode: 0644
+        checksum: '{{ nomad_checksum }}'
+    - name: make versioned install subdir
+      become: yes
+      become_user: root
+      file:
+        path: '{{ nomad_ver_install_subdir }}'
+        mode: 0755
+        state: directory
+    - name: unarchive
+      become: yes
+      become_user: root
+      unarchive:
+        remote_src: yes
+        src: /tmp/{{ nomad_archive }}
+        dest: '{{ nomad_ver_install_subdir }}'
+        mode: 0755
+        creates: '{{ nomad_ver_install_subdir }}/nomad'
+  always:
+    - name: cleanup
+      become: yes
+      become_user: root
+      file:
+        path: /tmp/{{ nomad_archive }}
+        state: absent
+- name: link
+  become: yes
+  become_user: root
+  file:
+    src: '{{ nomad_ver_install_subdir }}/nomad'
+    dest: '{{ nomad_install_dir }}/nomad'
+    state: link

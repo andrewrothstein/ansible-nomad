@@ -1,0 +1,7 @@
+---
+# vars file for nomad
+nomad_archive: nomad_{{ nomad_ver }}_{{ nomad_platform }}.zip
+nomad_url: '{{ nomad_mirror }}/{{ nomad_ver }}/{{ nomad_archive }}'
+nomad_checksum: '{{ nomad_checksums[nomad_ver][nomad_platform] }}'
+nomad_ver_install_subdir: '{{ nomad_install_dir }}/nomad_{{ nomad_ver }}'
+nomad_link: '{{ nomad_install_dir }}/nomad'

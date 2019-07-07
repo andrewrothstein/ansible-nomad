@@ -1,0 +1,18 @@
+---
+# defaults file for nomad
+nomad_ver: '0.9.3'
+nomad_mirror: https://releases.hashicorp.com/nomad
+nomad_platform: linux_amd64
+
+nomad_checksums:
+  # https://releases.hashicorp.com/nomad/0.9.3/nomad_0.9.3_SHA256SUMS
+  '0.9.3':
+    darwin_amd64: sha256:addf794e8f6ef915df28a10e1cf65f64c07688d472d40181b24359a785db60ea
+    linux_386: sha256:b5a8fc37ebb524a785bea789b6143e1d69e3498eac643f448ef56b722d9c1c61
+    linux_amd64: sha256:cbd008dd2f3c622cb931ce8e7e6465f5b683e66845eb70adb776c970a8029578
+    linux_arm: sha256:1d27e69675ec6da7fb707a58cb197641c67bc03e97b396547e4234d2d4eee49e
+    linux_arm64: sha256:19fcfec42e99f93b44d79774a8319ed931cbd82dc51665fe488b27eead87b112
+    windows_386: sha256:2b3067b30770552d24771936eac993a1f8f7ea6e56c552ad27988aacec0e5141
+    windows_amd64: sha256:83a1085d16ec4c58dd02fad1b0109a9b6cf71c96cd41d2d56eb46fdb5ba8d2eb
+
+nomad_install_dir: /usr/local/bin
