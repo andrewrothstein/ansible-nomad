@@ -1,5 +1,6 @@
 ---
 # vars file for nomad
+nomad_platform: '{{ nomad_os }}_{{ nomad_arch }}'
 nomad_archive: nomad_{{ nomad_ver }}_{{ nomad_platform }}.zip
 nomad_url: '{{ nomad_mirror }}/{{ nomad_ver }}/{{ nomad_archive }}'
 nomad_checksum: '{{ nomad_checksums[nomad_ver][nomad_platform] }}'

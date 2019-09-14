@@ -1,2 +1,2 @@
 ---
-nomad_platform: windows_amd64
+nomad_os: windows
