@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 APP=nomad
-VER=0.9.5
+VER=${1:-0.9.6}
 DIR=~/Downloads
 MIRROR=https://releases.hashicorp.com/${APP}/${VER}
 
