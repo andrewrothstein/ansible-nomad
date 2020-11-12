@@ -9,7 +9,7 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: check for install
+- name: check for install in {{ nomad_ver_install_subdir }}
   become: yes
   stat:
     path: '{{ nomad_ver_install_subdir }}'
@@ -17,41 +17,41 @@
   register: nomad_binary
 - when: not nomad_binary.stat.exists
   block:
-    - name: download archive
+    - name: downloading {{ nomad_url }} to {{ nomad_tmp_archive }}
       become: yes
       become_user: root
       get_url:
         url: '{{ nomad_url }}'
-        dest: /tmp/{{ nomad_archive }}
+        dest: '{{ nomad_tmp_archive }}'
         mode: 0644
         checksum: '{{ nomad_checksum }}'
-    - name: make versioned install subdir
+    - name: mkdir {{ nomad_ver_install_subdir }}
       become: yes
       become_user: root
       file:
         path: '{{ nomad_ver_install_subdir }}'
         mode: 0755
         state: directory
-    - name: unarchive
+    - name: unarchive to {{ nomad_ver_install_subdir }}
       become: yes
       become_user: root
       unarchive:
         remote_src: yes
-        src: /tmp/{{ nomad_archive }}
+        src: '{{ nomad_tmp_archive }}'
         dest: '{{ nomad_ver_install_subdir }}'
         mode: 0755
-        creates: '{{ nomad_ver_install_subdir }}/nomad'
+        creates: '{{ nomad_installed_exe }}'
   always:
-    - name: cleanup
+    - name: rm {{ nomad_tmp_archive }}
       become: yes
       become_user: root
       file:
-        path: /tmp/{{ nomad_archive }}
+        path: '{{ nomad_tmp_archive }}'
         state: absent
-- name: link
+- name: linking {{ nomad_link }} to {{ nomad_installed_exe }}
   become: yes
   become_user: root
   file:
-    src: '{{ nomad_ver_install_subdir }}/nomad'
-    dest: '{{ nomad_install_dir }}/nomad'
+    src: '{{ nomad_installed_exe }}'
+    dest: '{{ nomad_link }}'
     state: link
