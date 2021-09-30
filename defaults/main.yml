@@ -1,6 +1,6 @@
 ---
 # defaults file for nomad
-nomad_ver: 1.1.4
+nomad_ver: 1.1.5
 nomad_mirror: https://releases.hashicorp.com/nomad
 nomad_os: linux
 nomad_arch: amd64
@@ -552,3 +552,19 @@ nomad_checksums:
     windows_386: sha256:5efa9ec5d6c3cf9f27322b88e67647a29c7dd0ef729ef4b5c9ed4a6098a2f754
     # https://releases.hashicorp.com/nomad/1.1.4/nomad_1.1.4_windows_amd64.zip
     windows_amd64: sha256:8fcb0b4c64d7f0d524b880424ea696729086aee95bcdf491b6de57600ffda0a5
+  # https://releases.hashicorp.com/nomad/1.1.5/nomad_1.1.5_SHA256SUMS
+  '1.1.5':
+    # https://releases.hashicorp.com/nomad/1.1.5/nomad_1.1.5_darwin_amd64.zip
+    darwin_amd64: sha256:0d691822434d15ab340114c206923ffa6e38da14232aea902db74e595b77fd5c
+    # https://releases.hashicorp.com/nomad/1.1.5/nomad_1.1.5_linux_386.zip
+    linux_386: sha256:890a227a547e841109130842cab2ff6dd7628586e7dda3b7d8e977d1c1ff648d
+    # https://releases.hashicorp.com/nomad/1.1.5/nomad_1.1.5_linux_amd64.zip
+    linux_amd64: sha256:7627c157eccec00729ff6a25b0c98aba5d886b0d36c1ec6e63861cb4b96b6780
+    # https://releases.hashicorp.com/nomad/1.1.5/nomad_1.1.5_linux_arm.zip
+    linux_arm: sha256:bc20c620a2939b5657e8b6eff882fefdf9ac2c49cf3735a517d452476d4442f1
+    # https://releases.hashicorp.com/nomad/1.1.5/nomad_1.1.5_linux_arm64.zip
+    linux_arm64: sha256:f954d74ea99bff000ad66ae99760664e74ae0a14e7c4f43ed4b34c1dfb5e5d70
+    # https://releases.hashicorp.com/nomad/1.1.5/nomad_1.1.5_windows_386.zip
+    windows_386: sha256:3b6dc93f2e71d4b68107f192df96086a61007c6739ad35c1b3ba310d10eef008
+    # https://releases.hashicorp.com/nomad/1.1.5/nomad_1.1.5_windows_amd64.zip
+    windows_amd64: sha256:57ddbc49ed33d3cafb5d782acdc94d16ee0a461d7efc4ad7694b41966f28c2b4
