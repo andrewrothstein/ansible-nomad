@@ -39,4 +39,5 @@ dl_all () {
     dl $ver $lchecksums windows amd64
 }
 
-dl_all ${1:-1.3.3}
+dl_all 1.3.4
+dl_all ${1:-1.3.5}
