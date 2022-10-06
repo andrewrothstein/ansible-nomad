@@ -1,57 +1,9 @@
 ---
-- name: resolve platform specific vars
-  include_vars: '{{ item }}'
-  with_first_found:
-    - files:
-        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
-        - '{{ ansible_distribution }}.yml'
-        - '{{ ansible_os_family }}.yml'
-      skip: true
-      paths:
-        - '{{ role_path }}/vars'
-- name: check for install in {{ nomad_ver_install_subdir }}
-  become: yes
-  stat:
-    path: '{{ nomad_ver_install_subdir }}'
-  changed_when: False
-  register: nomad_binary
-- when: not nomad_binary.stat.exists
-  block:
-    - name: downloading {{ nomad_url }} to {{ nomad_tmp_archive }}
-      become: yes
-      become_user: root
-      get_url:
-        url: '{{ nomad_url }}'
-        dest: '{{ nomad_tmp_archive }}'
-        mode: 0644
-        checksum: '{{ nomad_checksum }}'
-    - name: mkdir {{ nomad_ver_install_subdir }}
-      become: yes
-      become_user: root
-      file:
-        path: '{{ nomad_ver_install_subdir }}'
-        mode: 0755
-        state: directory
-    - name: unarchive to {{ nomad_ver_install_subdir }}
-      become: yes
-      become_user: root
-      unarchive:
-        remote_src: yes
-        src: '{{ nomad_tmp_archive }}'
-        dest: '{{ nomad_ver_install_subdir }}'
-        mode: 0755
-        creates: '{{ nomad_installed_exe }}'
-  always:
-    - name: rm {{ nomad_tmp_archive }}
-      become: yes
-      become_user: root
-      file:
-        path: '{{ nomad_tmp_archive }}'
-        state: absent
-- name: linking {{ nomad_link }} to {{ nomad_installed_exe }}
-  become: yes
-  become_user: root
-  file:
-    src: '{{ nomad_installed_exe }}'
-    dest: '{{ nomad_link }}'
-    state: link
+- name: installing nomad binaries
+  include_role:
+    name: andrewrothstein.hashi
+  vars:
+    hashi_apps:
+      - name: '{{ nomad_app.name | default("nomad") }}'
+        ver: '{{ nomad_app.ver | default(nomad_ver) }}'
+        meta: '{{ nomad_app.meta | default("") }}'
