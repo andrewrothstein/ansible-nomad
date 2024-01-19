@@ -1,9 +1,14 @@
 ---
-- hosts: all
-  roles:
-  - role: '{{ playbook_dir }}'
+- name: Testing andrewrothstein.nomad
+  hosts: all
   tasks:
-  - command: /usr/local/bin/nomad --version
-    register: nomad_test_output
-  - debug:
-      msg: '{{ nomad_test_output.stdout }}'
+    - name: Installing andrewrothstein.nomad
+      ansible.builtin.include_role:
+        name: '{{ playbook_dir }}'
+    - name: Executing 'nomad --version'
+      ansible.builtin.command: /usr/local/bin/nomad --version
+      changed_when: false
+      register: nomad_test_output
+    - name: Output from 'nomad --version'
+      ansible.builtin.debug:
+        msg: '{{ nomad_test_output.stdout }}'

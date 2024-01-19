@@ -1,6 +1,6 @@
 ---
-- name: installing nomad binaries
-  include_role:
+- name: Installing nomad binaries
+  ansible.builtin.include_role:
     name: andrewrothstein.hashi
   vars:
     hashi_apps:
