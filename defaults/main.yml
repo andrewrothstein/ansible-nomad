@@ -1,3 +1,4 @@
 ---
 # defaults file for nomad
-nomad_ver: 1.11.1
+nomad_ver: 2.0.0
+
